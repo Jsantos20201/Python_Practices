@@ -45,12 +45,18 @@ def mostFrequentChar(s):
         else:
             counts[char] = 1
     
-    max_char = None
-    max_count = 0
+    # Start by saying: we don't know the max yet
+    max_char = None       # this will store the character with highest count
+    max_count = 0         # this stores the highest count seen so far
 
+    # Loop through each character in the dictionary
     for char in counts:
+        # Check if this character's count is bigger than the current max
         if counts[char] > max_count:
+            # If it is bigger, update the max count
             max_count = counts[char]
+            # Also update which character has that max count
             max_char = char
+    # After checking all characters, return the one with highest count
     return max_char
 print(mostFrequentChar("banana"))
