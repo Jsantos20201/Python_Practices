@@ -37,3 +37,20 @@ def removeDuplicates(nums):
     return new_list
 print(removeDuplicates([1,2,2,3,1]))
 ''''''
+def mostFrequentChar(s):
+    counts = {}
+    for char in s:
+        if char in counts:
+            counts[char] += 1
+        else:
+            counts[char] = 1
+    
+    max_char = None
+    max_count = 0
+
+    for char in counts:
+        if counts[char] > max_count:
+            max_count = counts[char]
+            max_char = char
+    return max_char
+print(mostFrequentChar("banana"))
