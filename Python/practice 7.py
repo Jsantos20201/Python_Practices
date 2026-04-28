@@ -1,3 +1,4 @@
+import requests
 def countBetween(nums, low, high):
     count = 0
     for num in nums:
@@ -65,3 +66,19 @@ def inventoryTracker(transactions):
     for item in sorted(stock):
         result.append(stock[item])
     return result
+''''''
+def getVerifiedUsers(minFollowers):
+    result = []
+    url = "https://jsonmock.hackerrank.com/api/users?page=1"
+    data = requests.get(url).json()
+
+    total_pages = data["total_pages"]
+
+    for page in range(1, total_pages + 1):
+        url = f"https://jsonmock.hackerrank.com/api/users?page={page}"
+        data = requests.get(url).json()
+
+        for user in data["data"]:
+            if user["followers"] >= minFollowers and user["verified"]:
+                result.append(user["username"])
+    return sorted(result)
