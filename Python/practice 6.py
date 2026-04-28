@@ -1,3 +1,4 @@
+import requests
 def countGreater(nums, k):
     count = 0
 
@@ -60,3 +61,45 @@ def mostFrequentChar(s):
     # After checking all characters, return the one with highest count
     return max_char
 print(mostFrequentChar("banana"))
+""""""
+def firstUnique(s):
+    counts = {}
+
+    for char in s:
+        if char in counts:
+            counts[char] += 1
+        else:
+            counts[char] = 1
+    
+    for char in s:
+        if counts[char] == 1:
+            return char
+    return None
+print(firstUnique("aabbcde"))
+''''''
+def hasPair(nums, target):
+    seen = set()
+    for num in nums:
+        needed = target - num
+        if needed in seen:
+            return True
+        seen.add(num)
+    return False
+print(hasPair([3, 2, 4], 6))
+print(hasPair([1, 5, 3, 7], 10))
+''''''
+
+def getCheapProducts(maxPrice):
+    result = []
+    url = "https://jsonmock.hackerrank.com/api/products?page=1"
+    data = requests.get(url).json()
+    total_pages = data["total_pages"]
+
+    for page in range(1, total_pages + 1):
+        url = f"https://jsonmock.hackerrank.com/api/products?page={page}"
+        data = requests.get(url).json()
+
+        for product in data["data"]:
+            if product["price"] <= maxPrice and product["inStock"]:
+                result.append(product["name"])
+    return sorted(result)
